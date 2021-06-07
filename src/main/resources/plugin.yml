@@ -1,0 +1,34 @@
+name: Skyblock-Renew
+version: ${project.version}
+main: gq.unurled.skyblockrenew.SkyblockRenew
+api-version: 1.16
+depend: [ NBTAPI, ProtocolLib ]
+
+commands:
+  rlpl:
+    description: reload all ?
+  kickall:
+    description: kickall player
+  addnbt:
+    description: oppen gui that helps you add nbt to items
+  testsword:
+    description: give player the test sword
+  spawn:
+    description: spawn entity
+
+permissions:
+  sbre.rlpl:
+    description: rlpl perm
+    default: op
+  sbre.kickall:
+    description: kickall perm
+    default: op
+  sbre.nbt.add:
+    description: perm to add nbt to object
+    default: op
+  sbre.test.sword:
+    description: permission for the test sword
+    default: op
+  sbre.spawn:
+    description: permission for spawn cmd
+    default: op
