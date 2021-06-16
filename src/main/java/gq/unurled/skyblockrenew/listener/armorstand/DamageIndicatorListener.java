@@ -1,11 +1,10 @@
-package gq.unurled.skyblockrenew.listener;
+package gq.unurled.skyblockrenew.listener.armorstand;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import gq.unurled.skyblockrenew.SkyblockRenew;
 import gq.unurled.skyblockrenew.listener.entity.EntityHider;
 import gq.unurled.skyblockrenew.utils.CalcStats;
 import gq.unurled.skyblockrenew.utils.Utility;

@@ -1,4 +1,4 @@
-package gq.unurled.skyblockrenew.listener;
+package gq.unurled.skyblockrenew.listener.armorstand;
 
 import gq.unurled.skyblockrenew.listener.entity.EntityHider;
 import org.bukkit.entity.ArmorStand;
