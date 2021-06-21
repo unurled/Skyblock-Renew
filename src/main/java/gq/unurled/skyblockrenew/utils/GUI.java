@@ -2,7 +2,6 @@ package gq.unurled.skyblockrenew.utils;
 
 import de.tr7zw.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;

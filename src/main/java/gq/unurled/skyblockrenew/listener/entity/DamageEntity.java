@@ -11,6 +11,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageEntity implements Listener {
     CalcStats stats = new CalcStats();
 
+    gq.unurled.skyblockrenew.entity.hostile.zombie Zombie;
+
     @EventHandler
     public void DamageEntity(EntityDamageByEntityEvent e) {
         if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
@@ -21,6 +23,12 @@ public class DamageEntity implements Listener {
                 if(nbtent.hasKey("ACTUAL_HEALTH")) {
                     Double health =  nbtent.getDouble("ACTUAL_HEALTH");
                     health = health - damage;
+                    nbtent.setDouble("ACTUAL_HEALTH", health);
+                    if(nbtent.hasKey("ID")) {
+                        if(nbtent.getString("ID").equals("ZOMBIE")) {
+                            e.getEntity().setCustomName(Zombie.name(e.getEntity()));
+                        }
+                    }
                     if(health < 0) {
                         e.getEntity().remove();
                     }

@@ -1,10 +1,9 @@
 package gq.unurled.skyblockrenew.utils;
 
+import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -12,8 +11,63 @@ public class CalcStats {
 
     Double health = 0.0;
     Double damage = 0.0;
+    Double defense = 0.0;
 
-    public Double calcHealth(Player player) {
+    public Double calcDefense(Player player) {
+        health = 0.0;
+        defense = 0.0;
+        PlayerInventory playerInv = player.getInventory();
+        if(playerInv.getItemInMainHand() != null && playerInv.getItemInMainHand().getType() != Material.AIR) {
+            Double itemDefense = 0.0;
+            ItemStack it = playerInv.getItemInMainHand();
+            NBTItem nbti = new NBTItem(it);
+            if(nbti.hasKey("DEFENSE")) {
+                itemDefense = nbti.getDouble("DEFENSE");
+            }
+            defense = defense + itemDefense;
+        }
+        if(playerInv.getArmorContents() != null) {
+            Double helmetDefense = 0.0;
+            Double chestplateDefense = 0.0;
+            Double leggingsDefense = 0.0;
+            Double bootsDefense = 0.0;
+            Double armorDefense= 0.0;
+            if(playerInv.getHelmet() != null && playerInv.getHelmet().getType() != Material.AIR) {
+                ItemStack helmet = playerInv.getHelmet();
+                NBTItem nbti = new NBTItem(helmet);
+                if(nbti.hasKey("DEFENSE")) {
+                    helmetDefense = nbti.getDouble("DEFENSE");
+                }
+            }
+            if(playerInv.getChestplate() != null && playerInv.getChestplate().getType() != Material.AIR) {
+                ItemStack chestplate = playerInv.getChestplate();
+                NBTItem nbti = new NBTItem(chestplate);
+                if(nbti.hasKey("DEFENSE")) {
+                    chestplateDefense = nbti.getDouble("DEFENSE");
+                }
+            }
+            if(playerInv.getLeggings() != null && playerInv.getLeggings().getType() != Material.AIR) {
+                ItemStack leggings = playerInv.getLeggings();
+                NBTItem nbti = new NBTItem(leggings);
+                if(nbti.hasKey("DEFENSE")) {
+                    leggingsDefense = nbti.getDouble("DEFENSE");
+                }
+            }
+            if(playerInv.getBoots() != null && playerInv.getBoots().getType() != Material.AIR) {
+                ItemStack boots = playerInv.getBoots();
+                NBTItem nbti = new NBTItem(boots);
+                if(nbti.hasKey("DEFENSE")) {
+                    bootsDefense = nbti.getDouble("DEFENSE");
+                }
+            }
+            armorDefense = helmetDefense + chestplateDefense + leggingsDefense + bootsDefense;
+            defense = defense + armorDefense;
+        }
+        return defense;
+    }
+
+    public Double calcMaxHealth(Player player) {
+        health = 0.0;
         PlayerInventory playerInv = player.getInventory();
         if(playerInv.getItemInMainHand() != null && playerInv.getItemInMainHand().getType() != Material.AIR) {
             Double itemHealth = 0.0;
@@ -60,6 +114,19 @@ public class CalcStats {
             }
             armorHealth = helmetHealth + chestplateHealth + leggingsHealth + bootsHealth;
             health = health + armorHealth;
+        }
+        return health;
+    }
+
+    public Double calcHealth(Player player) {
+        health = 0.0;
+        NBTEntity nbtent = new NBTEntity(player);
+        if(nbtent.hasKey("ACTUAL_HEALTH")) {
+            health = nbtent.getDouble("ACTUAL_HEALTH");
+        }
+        else {
+            nbtent.setDouble("ACTUAL_HEALTH", calcMaxHealth(player));
+            health = calcMaxHealth(player);
         }
         return health;
     }

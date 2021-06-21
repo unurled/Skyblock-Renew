@@ -13,9 +13,14 @@ public class zombie {
         Zombie z = (Zombie) Bukkit.getWorld(world.getUID()).spawnEntity(loc, EntityType.ZOMBIE);
         NBTEntity nbtent = new NBTEntity(z);
         nbtent.setInteger("LEVEL", baseLevel());
+        nbtent.setString("ID", "ZOMBIE");
 
         z.setCustomName("§7[Lvl." + getLevel(z).toString() + "] §cZombie §a" + getActualHealth(z) + "/" + maxHealth(z).toString() + "§c❤");
         z.setCustomNameVisible(true);
+    }
+
+    public String name (Entity e) {
+        return "§7[Lvl." + getLevel(e).toString() + "] §cZombie §a" + getActualHealth(e) + "/" + maxHealth(e).toString() + "§c❤";
     }
 
     public Integer baseLevel() {
