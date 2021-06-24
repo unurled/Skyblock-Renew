@@ -17,15 +17,12 @@ public class ItemInHandChange implements Listener {
             NBTItem nbti = new NBTItem(previouItem);
             if(nbti.hasKey("SPEED")) {
                 float speed = nbti.getFloat("SPEED");
-                System.out.println("Speed -" + speed);
             }
             if(nbti.hasKey("HEALTH")) {
                 double health = nbti.getDouble("HEALTH");
-                System.out.println("Health -" + health);
             }
             if(nbti.hasKey("INTELLIGENCE")) {
                 double intel = nbti.getDouble("INTELLIGENCE");
-                System.out.println("Intel " + intel);
             }
         }
 
@@ -34,15 +31,12 @@ public class ItemInHandChange implements Listener {
             NBTItem nbti = new NBTItem(newItem);
             if(nbti.hasKey("SPEED")) {
                 float speed = nbti.getFloat("SPEED");
-                System.out.println("Speed " + speed);
             }
             if(nbti.hasKey("HEALTH")) {
                 double health = nbti.getDouble("HEALTH");
-                System.out.println("Health " + health);
             }
             if(nbti.hasKey("INTELLIGENCE")) {
                 double intel = nbti.getDouble("INTELLIGENCE");
-                System.out.println("Intel " + intel);
             }
         }
     }

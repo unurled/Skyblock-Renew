@@ -12,9 +12,62 @@ public class CalcStats {
     Double health = 0.0;
     Double damage = 0.0;
     Double defense = 0.0;
+    Double intelligence = 0.0;
+    Float speed = 0f;
+
+    public Float calcSpeed(Player player) {
+        speed = 100f;
+        PlayerInventory playerInv = player.getInventory();
+        if(playerInv.getItemInMainHand() != null && playerInv.getItemInMainHand().getType() != Material.AIR) {
+            Float itemSpeed = 0f;
+            ItemStack it = playerInv.getItemInMainHand();
+            NBTItem nbti = new NBTItem(it);
+            if(nbti.hasKey("SPEED")) {
+                itemSpeed = nbti.getFloat("SPEED");
+            }
+            speed = speed + itemSpeed;
+        }
+        if(playerInv.getArmorContents() != null) {
+            Float helmetSpeed = 0f;
+            Float chestplateSpeed = 0f;
+            Float leggingsSpeed = 0f;
+            Float bootsSpeed = 0f;
+            Float armorSpeed = 0f;
+            if(playerInv.getHelmet() != null && playerInv.getHelmet().getType() != Material.AIR) {
+                ItemStack helmet = playerInv.getHelmet();
+                NBTItem nbti = new NBTItem(helmet);
+                if(nbti.hasKey("SPEED")) {
+                    helmetSpeed = nbti.getFloat("SPEED");
+                }
+            }
+            if(playerInv.getChestplate() != null && playerInv.getChestplate().getType() != Material.AIR) {
+                ItemStack chestplate = playerInv.getChestplate();
+                NBTItem nbti = new NBTItem(chestplate);
+                if(nbti.hasKey("SPEED")) {
+                    chestplateSpeed = nbti.getFloat("SPEED");
+                }
+            }
+            if(playerInv.getLeggings() != null && playerInv.getLeggings().getType() != Material.AIR) {
+                ItemStack leggings = playerInv.getLeggings();
+                NBTItem nbti = new NBTItem(leggings);
+                if(nbti.hasKey("SPEED")) {
+                    leggingsSpeed = nbti.getFloat("SPEED");
+                }
+            }
+            if(playerInv.getBoots() != null && playerInv.getBoots().getType() != Material.AIR) {
+                ItemStack boots = playerInv.getBoots();
+                NBTItem nbti = new NBTItem(boots);
+                if(nbti.hasKey("SPEED")) {
+                    bootsSpeed = nbti.getFloat("SPEED");
+                }
+            }
+            armorSpeed = helmetSpeed + chestplateSpeed + leggingsSpeed + bootsSpeed;
+            speed = speed + armorSpeed;
+        }
+        return speed;
+    }
 
     public Double calcDefense(Player player) {
-        health = 0.0;
         defense = 0.0;
         PlayerInventory playerInv = player.getInventory();
         if(playerInv.getItemInMainHand() != null && playerInv.getItemInMainHand().getType() != Material.AIR) {
@@ -116,6 +169,71 @@ public class CalcStats {
             health = health + armorHealth;
         }
         return health;
+    }
+
+    public Double calcMaxIntelligence(Player player) {
+        intelligence = 0.0;
+        PlayerInventory playerInv = player.getInventory();
+        if(playerInv.getItemInMainHand() != null && playerInv.getItemInMainHand().getType() != Material.AIR) {
+            Double itemIntelligence = 0.0;
+            ItemStack it = playerInv.getItemInMainHand();
+            NBTItem nbti = new NBTItem(it);
+            if(nbti.hasKey("INTELLIGENCE")) {
+                itemIntelligence = nbti.getDouble("INTELLIGENCE");
+            }
+            intelligence = intelligence + itemIntelligence;
+        }
+        if(playerInv.getArmorContents() != null) {
+            Double helmetIntelligence= 0.0;
+            Double chestplateIntelligence = 0.0;
+            Double leggingsIntelligence = 0.0;
+            Double bootsIntelligence = 0.0;
+            Double armorIntelligence = 0.0;
+            if(playerInv.getHelmet() != null && playerInv.getHelmet().getType() != Material.AIR) {
+                ItemStack helmet = playerInv.getHelmet();
+                NBTItem nbti = new NBTItem(helmet);
+                if(nbti.hasKey("INTELLIGENCE")) {
+                    helmetIntelligence = nbti.getDouble("INTELLIGENCE");
+                }
+            }
+            if(playerInv.getChestplate() != null && playerInv.getChestplate().getType() != Material.AIR) {
+                ItemStack chestplate = playerInv.getChestplate();
+                NBTItem nbti = new NBTItem(chestplate);
+                if(nbti.hasKey("INTELLIGENCE")) {
+                    chestplateIntelligence= nbti.getDouble("INTELLIGENCE");
+                }
+            }
+            if(playerInv.getLeggings() != null && playerInv.getLeggings().getType() != Material.AIR) {
+                ItemStack leggings = playerInv.getLeggings();
+                NBTItem nbti = new NBTItem(leggings);
+                if(nbti.hasKey("INTELLIGENCE")) {
+                    leggingsIntelligence = nbti.getDouble("INTELLIGENCE");
+                }
+            }
+            if(playerInv.getBoots() != null && playerInv.getBoots().getType() != Material.AIR) {
+                ItemStack boots = playerInv.getBoots();
+                NBTItem nbti = new NBTItem(boots);
+                if(nbti.hasKey("INTELLIGENCE")) {
+                    bootsIntelligence = nbti.getDouble("INTELLIGENCE");
+                }
+            }
+            armorIntelligence = helmetIntelligence + chestplateIntelligence + leggingsIntelligence + bootsIntelligence;
+            intelligence = intelligence + armorIntelligence;
+        }
+        return intelligence;
+    }
+
+    public Double calcIntelligence(Player player) {
+        intelligence = 0.0;
+        NBTEntity nbtent = new NBTEntity(player);
+        if(nbtent.hasKey("ACTUAL_INTELLIGENCE")) {
+            intelligence = nbtent.getDouble("ACTUAL_INTELLIGENCE");
+        }
+        else {
+            nbtent.setDouble("ACTUAL_INTELLIGENCE", calcMaxIntelligence(player));
+            intelligence = calcMaxIntelligence(player);
+        }
+        return intelligence;
     }
 
     public Double calcHealth(Player player) {

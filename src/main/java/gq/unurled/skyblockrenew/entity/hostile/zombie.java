@@ -1,19 +1,36 @@
 package gq.unurled.skyblockrenew.entity.hostile;
 
+import com.comphenix.protocol.wrappers.nbt.NbtCompound;
+import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTEntity;
+import de.tr7zw.nbtinjector.NBTInjector;
+import gq.unurled.skyblockrenew.SkyblockRenew;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataHolder;
+import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 public class zombie {
-    public void spawnZombie(Location loc, World world) {
+    public void spawnZombie(Location loc, World world, Integer level, Double health) {
         Zombie z = (Zombie) Bukkit.getWorld(world.getUID()).spawnEntity(loc, EntityType.ZOMBIE);
-        NBTEntity nbtent = new NBTEntity(z);
-        nbtent.setInteger("LEVEL", baseLevel());
-        nbtent.setString("ID", "ZOMBIE");
+        NamespacedKey key =  new NamespacedKey(SkyblockRenew.getInstance(), "LEVEL");
+        @NotNull PersistentDataContainer d = z.getPersistentDataContainer();
+        d.set(key, PersistentDataType.INTEGER, level);
+        key =  new NamespacedKey(SkyblockRenew.getInstance(), "ID");
+        d.set(key, PersistentDataType.STRING, "ZOMBIE");
+        key =  new NamespacedKey(SkyblockRenew.getInstance(), "HEALTH");
+        d = z.getPersistentDataContainer();
+        d.set(key, PersistentDataType.DOUBLE, health);
+        key =  new NamespacedKey(SkyblockRenew.getInstance(), "ACTUAL_HEALTH");
+        d = z.getPersistentDataContainer();
+        d.set(key, PersistentDataType.DOUBLE,health);
 
         z.setCustomName("§7[Lvl." + getLevel(z).toString() + "] §cZombie §a" + getActualHealth(z) + "/" + maxHealth(z).toString() + "§c❤");
         z.setCustomNameVisible(true);
@@ -29,24 +46,26 @@ public class zombie {
 
     public Double getActualHealth(Entity e) {
         Double health = baseHealth();
-        NBTEntity nbtent = new NBTEntity(e);
-        if(nbtent.hasKey("ACTUAL_HEALTH")) {
-            health =  nbtent.getDouble("ACTUAL_HEALTH");
+        NamespacedKey key =  new NamespacedKey(SkyblockRenew.getInstance(), "ACTUAL_HEALTH");
+        PersistentDataContainer d = e.getPersistentDataContainer();
+        if(d.get(key, PersistentDataType.DOUBLE) != null) {
+            health =  d.get(key, PersistentDataType.DOUBLE);
         }
         else {
-            nbtent.setDouble("ACTUAL_HEALTH", baseHealth());
+            d.set(key, PersistentDataType.DOUBLE,baseHealth());
         }
         return health;
     }
 
     public Integer getLevel(Entity e) {
         Integer level = baseLevel();
-        NBTEntity nbtent = new NBTEntity(e);
-        if(nbtent.hasKey("LEVEL")) {
-            level =  nbtent.getInteger("LEVEL");
+        NamespacedKey key =  new NamespacedKey(SkyblockRenew.getInstance(), "LEVEL");
+        PersistentDataContainer d = e.getPersistentDataContainer();
+        if(d.get(key, PersistentDataType.INTEGER) != null) {
+            level =  d.get(key, PersistentDataType.INTEGER);
         }
         else {
-            nbtent.setInteger("LEVEL", baseLevel());
+            d.set(key, PersistentDataType.INTEGER,baseLevel());
         }
         return level;
     }
@@ -57,12 +76,13 @@ public class zombie {
 
     public Double maxHealth(Entity e) {
         Double health = baseHealth();
-        NBTEntity nbtent = new NBTEntity(e);
-        if(nbtent.hasKey("LEVEL")) {
-            health =  nbtent.getDouble("HEALTH");
+        NamespacedKey key =  new NamespacedKey(SkyblockRenew.getInstance(), "HEALTH");
+        PersistentDataContainer d = e.getPersistentDataContainer();
+        if(d.get(key, PersistentDataType.DOUBLE) != null) {
+            health =  d.get(key, PersistentDataType.DOUBLE);
         }
         else {
-            nbtent.setDouble("HEALTH", baseHealth());
+            d.set(key, PersistentDataType.DOUBLE,baseHealth());
         }
         return health;
     }

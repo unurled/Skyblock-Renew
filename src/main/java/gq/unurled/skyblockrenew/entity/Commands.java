@@ -22,8 +22,8 @@ public class Commands implements CommandExecutor {
                 Player player = (Player) sender;
                 if(sender.hasPermission("sbre.spawn")) {
                     if(Arrays.toString(args).contains("zombie")) {
+                        z.spawnZombie(player.getLocation(), player.getWorld(), Integer.parseInt(args[1]), Double.parseDouble(args[2]));
                         player.sendMessage(SkyblockRenew.getPrefix() + ChatColor.GREEN + "You Have spawned a zombie.");
-                        z.spawnZombie(player.getLocation(), player.getWorld());
                     }
                 }
                 else {

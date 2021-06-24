@@ -3,6 +3,7 @@
 target/
 .settings/
 .vscode/
+api/
 
 *.iml
 *.ipr

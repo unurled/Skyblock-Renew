@@ -4,7 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import gq.unurled.skyblockrenew.commands.admin.KickAllCMD;
 import gq.unurled.skyblockrenew.commands.admin.ReloadCMD;
-import gq.unurled.skyblockrenew.commands.admin.testcmd.TestSwordCMD;
+import gq.unurled.skyblockrenew.commands.admin.testcmd.TestCMD;
 import gq.unurled.skyblockrenew.commands.item.addNBT.addNBTCMD;
 import gq.unurled.skyblockrenew.entity.Commands;
 import gq.unurled.skyblockrenew.listener.armorstand.DamageIndicatorListener;
@@ -56,7 +56,7 @@ public final class SkyblockRenew extends JavaPlugin {
         getCommand("rlpl").setExecutor(new ReloadCMD());
         getCommand("kickall").setExecutor(new KickAllCMD());
         getCommand("addnbt").setExecutor(new addNBTCMD());
-        getCommand("testsword").setExecutor(new TestSwordCMD());
+        getCommand("test").setExecutor(new TestCMD());
         getCommand("spawn").setExecutor(new Commands());
 
         getServer().getConsoleSender().sendMessage(prefix + ChatColor.GREEN +  "Commands Registered.");
@@ -71,6 +71,8 @@ public final class SkyblockRenew extends JavaPlugin {
         pm.registerEvents(new InventoryClick(), this);
         pm.registerEvents(new DamageEntity(), this);
         pm.registerEvents(new DamageIndicatorListener(this, this.entityHider, this.config, toBeRemovedArmorstands), this);
+        //pm.registerEvents(new PlayerArmorChange(), this);
+        pm.registerEvents(new MoveEvent(), this);
         //pm.registerEvents(new onArmorChange(), this);
 
         getServer().getConsoleSender().sendMessage(prefix + ChatColor.GREEN +  "Events Registered.");

@@ -11,7 +11,7 @@ commands:
     description: kickall player
   addnbt:
     description: oppen gui that helps you add nbt to items
-  testsword:
+  test:
     description: give player the test sword
   spawn:
     description: spawn entity

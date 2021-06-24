@@ -21,7 +21,8 @@ public class ActionBar {
             @Override
             public void run() {
                 sendMessage(player,   "§c" + stats.calcHealth(player).toString() + "/" + stats.calcMaxHealth(player).toString() +
-                        "❤     §a" + stats.calcDefense(player).toString() + "❈ Defense  §b✎∞/∞ Mana");
+                        "❤     §a" + stats.calcDefense(player).toString() + "❈ Defense  §b✎" + stats.calcIntelligence(player) + "/" +
+                        stats.calcMaxIntelligence(player) + " Mana");
                 if(!(player.isOnline())) {
                     cancel();
                 }
