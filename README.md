@@ -1,5 +1,7 @@
 # Skyblock-Renew
 
+# discontinued not working on it anymore, making other projects
+
 ## HEAVY WIP
 
 do not download at this point of the developpement
